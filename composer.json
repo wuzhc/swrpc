@@ -1,6 +1,13 @@
 {
     "name": "wuzhc/swrpc",
     "description": "基于swoole的rpc库",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "wuzhc",
+            "email": "wuzhc2016@163.com"
+        }
+    ],
     "require": {
         "php": ">=7.3",
         "psr/log": "~1.0.1",
