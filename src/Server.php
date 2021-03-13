@@ -67,19 +67,12 @@ class Server
         $this->host = $host;
         $this->port = $port;
 
-        //设置默认选项
         $this->setDefaultOptions($options);
-
-        //设置默认日志
         $this->setDefaultLogger($logger);
-
-        //注册默认中间件
         $this->setCoreMiddleware();
 
-        //设置业务服务处理
         $this->service = new Service($this->logger);
 
-        //实例化服务器
         $server = new \Swoole\Server($host, $port, $mode ?: SWOOLE_PROCESS, $socketType ?: SWOOLE_SOCK_TCP);
         $server->set($this->options);
         $server->on('Start', [$this, 'onStart']);
