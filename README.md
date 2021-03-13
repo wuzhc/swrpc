@@ -46,6 +46,7 @@ School模块将作为rpc服务端，对外提供服务，启动如下：
 
 ```php
 <?php
+namespace SwrpcTests;
 use Swrpc\Server;
 
 $basePath = dirname(dirname(__FILE__));
@@ -56,7 +57,7 @@ $options = [
     'pid_file'         => __DIR__ . '/swrpc.pid',
 ];
 $server = new Server('School_Module', '127.0.0.1', 9501, 1, $options);
-$server->addService(SchoolService::class); 
+$server->addService(\SwrpcTests\services\SchoolService::class); 
 $server->start();
 ```
 
@@ -72,6 +73,7 @@ User模块作为客户端，调用School模块服务如下
 
 ```php
 <?php
+namespace SwrpcTests;
 use Swrpc\Request;
 use Swrpc\LogicService;
 use Swrpc\Client;
@@ -83,13 +85,15 @@ class UserService extends LogicService
         $userID = 123;
         $module = 'School_Module'; //请求目标模块名称，需要和服务端定义的一致
         $client = Client::create($module, '127.0.0.1', 9501);
-        return $client->send(Request::create('SchoolService_getUserSchool', [$userID]));
+        return $client->send(Request::create('\SwrpcTests\services\SchoolService_getUserSchool', [$userID]));
     }
 }
 
 //调用
 echo UserService::factory()->getUserSchoolName();
 ```
+注意：
+- Request.method 为服务类命名 + 下划线 + 方法名，例如上面的`\SwrpcTests\services\SchoolService_getUserSchool`，如果服务类有命名空间，记得一定要带上命名空间
 
 
 
@@ -180,21 +184,22 @@ $server->addService(SchoolService::class); //提供SchoolService所有public方�
 $server->addService(AreaService::class); //提供AreaService所有public方法功能
 $server->start();
 ```
+客户端使用参考上面的快速体验
 
 
 
 ## 注册服务发现
 
-如果服务端启动的时候有设置注册中心，则启动成功会自动向注册中心注册服务端地址。
+如果服务端启动的时候有设置注册中心，则启动成功会自动向注册中心注册服务端地址。目前swrpc提供了`Consul`作为注册中心，使用如下
 
 ```php
 $server = new Server('School_Module', '127.0.0.1', 9501, 1, $options);
-$server->addRegister(new Consul(['weights' => ['Passing' => 10, 'Warning' => 1]]));
+$server->addRegister(new Consul());
 $server->addService(SchoolService::class); 
 $server->start();
 ```
 
-如上，使用Consul作为服务的注册中心，通过http://127.0.0.1:8500可以查看注册信息，如果想用etcd等其他注册中心，只要实现`Swrpc\Middlewares\RegisterInterface`接口即可，然后在通过`$server->addRegister()`添加到server
+如上，使用Consul作为服务的注册中心，通过`http://127.0.0.1:8500`可以查看注册信息，如果想用etcd等其他注册中心，只要实现`Swrpc\Middlewares\RegisterInterface`接口即可，然后在通过`$server->addRegister()`添加到server
 
 ![1615562878292](https://segmentfault.com/img/bVcPwbR)
 
@@ -305,9 +310,6 @@ $server->start();
 
 注意：
 
-- `HTTPS` 应用浏览器必须信任证书才能浏览网页；
-- `wss` 应用中，发起 `WebSocket` 连接的页面必须使用 `HTTPS` ；
-- 浏览器不信任 `SSL` 证书将无法使用 `wss` ；
 - 文件必须为 `PEM` 格式，不支持 `DER` 格式，可使用 `openssl` 工具进行转换
 
 
