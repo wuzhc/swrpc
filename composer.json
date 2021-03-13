@@ -10,8 +10,8 @@
     ],
     "require": {
         "php": ">=7.3",
-        "psr/log": "~1.0.1",
-        "monolog/monolog": "~2.2",
+        "psr/log": "^1.0",
+        "monolog/monolog": "^2.2",
         "sensiolabs/consul-php-sdk": "~4.0",
         "openzipkin/zipkin": "~2.0"
     },
