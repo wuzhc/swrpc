@@ -19,7 +19,7 @@ swrpc是一个基于swoole开发的高性能rpc包，swrpc提供了注册发现�
 ## 安装
 
 ```bash
-php composer.phar require "wuzhc/swprc:~1.0.1" -vvv
+php composer.phar require wuzhc/swprc ~1.0 -vvv
 ```
 
 
