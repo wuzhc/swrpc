@@ -1,0 +1,7 @@
+.idea
+.phpunit.result.cache
+tests/swprc.pid
+tests/swrpc.log
+vendor
+examples
+swrpc_test_report.log

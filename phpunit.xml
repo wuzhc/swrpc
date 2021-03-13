@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="vendor/autoload.php" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage/>
+  <php>
+    <env name="CONSUL_HOST" value="127.0.0.1"/>
+    <env name="CONSUL_PORT" value="8500"/>
+    <env name="RPC_SERVER_HOST" value="192.168.1.104"/>
+    <env name="RPC_SERVER_PORT" value="9501"/>
+  </php>
+  <logging>
+    <testdoxText outputFile="./swrpc_test_report.log"/>
+  </logging>
+</phpunit>
