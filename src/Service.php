@@ -50,7 +50,11 @@ class Service
             $obj = new $obj();
         }
         if (!is_object($obj)) {
-            $this->logger->error('Service is not an object.');
+            $this->logger->error('Service is not an object.', ['service' => $obj]);
+            return false;
+        }
+        if (!($obj instanceof LogicService)) {
+            $this->logger->error('The Service does not inherit LogicService', ['service' => get_class($obj)]);
             return false;
         }
         $className = get_class($obj);

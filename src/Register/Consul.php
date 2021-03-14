@@ -22,10 +22,12 @@ class Consul implements RegisterInterface
             'lastUpdateTime' => 0,
         ];
 
-    public function __construct($options = [])
+    public function __construct($uri = 'http://127.0.0.1:8500', $options = [])
     {
         $this->options = $options;
-        $this->sf = new ServiceFactory();
+        $this->sf = new ServiceFactory([
+            'base_uri' => $uri
+        ]);
     }
 
     public function getName(): string

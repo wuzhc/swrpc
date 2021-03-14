@@ -407,7 +407,7 @@ class Server
     {
         //可用服务数量
         if ($this->service->count() == 0) {
-            $this->logger->error('Service not set.');
+            $this->logger->error('There is no service available.');
             return false;
         }
         //默认使用固定包头+包体方式解决粘包问题
