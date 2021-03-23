@@ -16,6 +16,7 @@ use Swrpc\Request\SyncRequest;
 class PackerTest extends TestCase
 {
     /**
+     * 注意：Request类属性和方法发生变化时，这个测试案例就没有意义了
      * @return string
      * @author wuzhc 2021312 14:57:32
      */
@@ -23,7 +24,7 @@ class PackerTest extends TestCase
     {
         $packer = new \Swrpc\Packer\SerializeLengthPacker();
         $result = $packer->pack(SyncRequest::create('SchoolService_getName', [1, 1]));
-        $this->assertEquals('AAAAtk86MjU6IlN3cnBjXFJlcXVlc3RcU3luY1JlcXVlc3QiOjU6e3M6OToiACoAbWV0aG9kIjtzOjIxOiJTY2hvb2xTZXJ2aWNlX2dldE5hbWUiO3M6OToiACoAcGFyYW1zIjthOjI6e2k6MDtpOjE7aToxO2k6MTt9czo5OiIAKgBpc1N5bmMiO2I6MDtzOjg6IgAqAGVycm9yIjtOO3M6MTU6IgAqAHRyYWNlQ29udGV4dCI7Tjt9', base64_encode($result));
+        $this->assertEquals('AAAAzU86MjU6IlN3cnBjXFJlcXVlc3RcU3luY1JlcXVlc3QiOjY6e3M6OToiACoAbWV0aG9kIjtzOjIxOiJTY2hvb2xTZXJ2aWNlX2dldE5hbWUiO3M6OToiACoAcGFyYW1zIjthOjI6e2k6MDtpOjE7aToxO2k6MTt9czo5OiIAKgBpc1N5bmMiO2I6MTtzOjExOiIAKgBpc1N5c3RlbSI7YjowO3M6ODoiACoAZXJyb3IiO047czoxNToiACoAdHJhY2VDb250ZXh0IjtOO30=', base64_encode($result));
         return base64_encode($result);
     }
 
@@ -40,6 +41,7 @@ class PackerTest extends TestCase
     }
 
     /**
+     * 注意：Request类属性和方法发生变化时，这个测试案例就没有意义了
      * @return string
      * @author wuzhc 2021312 14:57:32
      */
@@ -47,7 +49,7 @@ class PackerTest extends TestCase
     {
         $packer = new \Swrpc\Packer\SerializeEofPacker();
         $result = $packer->pack(SyncRequest::create('SchoolService_getName', [1, 1]));
-        $this->assertEquals('TzoyNToiU3dycGNcUmVxdWVzdFxTeW5jUmVxdWVzdCI6NTp7czo5OiIAKgBtZXRob2QiO3M6MjE6IlNjaG9vbFNlcnZpY2VfZ2V0TmFtZSI7czo5OiIAKgBwYXJhbXMiO2E6Mjp7aTowO2k6MTtpOjE7aToxO31zOjk6IgAqAGlzU3luYyI7YjowO3M6ODoiACoAZXJyb3IiO047czoxNToiACoAdHJhY2VDb250ZXh0IjtOO30=', base64_encode($result));
+        $this->assertEquals('TzoyNToiU3dycGNcUmVxdWVzdFxTeW5jUmVxdWVzdCI6Njp7czo5OiIAKgBtZXRob2QiO3M6MjE6IlNjaG9vbFNlcnZpY2VfZ2V0TmFtZSI7czo5OiIAKgBwYXJhbXMiO2E6Mjp7aTowO2k6MTtpOjE7aToxO31zOjk6IgAqAGlzU3luYyI7YjoxO3M6MTE6IgAqAGlzU3lzdGVtIjtiOjA7czo4OiIAKgBlcnJvciI7TjtzOjE1OiIAKgB0cmFjZUNvbnRleHQiO047fQ==', base64_encode($result));
         return base64_encode($result);
     }
 

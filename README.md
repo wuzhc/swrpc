@@ -316,7 +316,7 @@ $server->start();
 
 ## 测试
 
-使用phpuint实现的简单测试案例，配置文件`phpunit.xml`
+使用phpuint实现的简单测试案例，配置文件`phpunit.xml`，根据你的服务器配置ip地址
 
 ```bash
 php phpunit.phar tests --debug

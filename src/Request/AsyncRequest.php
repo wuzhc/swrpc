@@ -13,6 +13,7 @@ class AsyncRequest extends Request
 {
     public function init()
     {
-        $this->setSync(true);
+        $this->setSync(false);
+        $this->setSystem(false);
     }
 }

@@ -290,12 +290,17 @@ class Server
     {
         /** @var Request $request */
         $request = $this->packer->unpack($data);
-        if ($request->isSync()) {
-            $server->task($request);
-            return $server->send($fd, serialize(Response::success(['result' => 'success'])));
+        //系统请求
+        if ($request->isSystem()) {
+            return $server->send($fd, serialize($this->doSystemRequest($request)));
         }
-
-        $server->send($fd, serialize($this->doRequest($request)));
+        //同步请求
+        if ($request->isSync()) {
+            return $server->send($fd, serialize($this->doRequest($request)));
+        }
+        //异步请求
+        $server->task($request);
+        return $server->send($fd, serialize(Response::success(['result' => 'success'])));
     }
 
     /**
@@ -321,6 +326,22 @@ class Server
         }
 
         return $response;
+    }
+
+    /**
+     * 系统请求
+     *
+     * @param Request $request
+     * @return Response
+     * @author wuzhc 2021323 10:46:55
+     */
+    public function doSystemRequest(Request $request): Response
+    {
+        if ($request->getMethod() == 'stats') {
+            return Response::success(['result' => $this->server->stats()]);
+        } else {
+            return Response::error($request->getMethod() . ' is not supported');
+        }
     }
 
     /**

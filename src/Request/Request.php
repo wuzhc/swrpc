@@ -10,7 +10,8 @@ abstract class Request
     protected string $module;
     protected string $method;
     protected array $params;
-    protected $isSync;
+    protected bool $isSync = true; //是否同步请求，默认是
+    protected bool $isSystem = false; //是否系统请求，默认否
     protected $error;
     protected ?TracerContext $traceContext;
 
@@ -69,14 +70,24 @@ abstract class Request
         $this->traceContext = TracerContext::create($traceID, $parentID, $url);
     }
 
-    public function setSync(bool $sync)
+    public function setSync(bool $value)
     {
-        $this->isSync = $sync;
+        $this->isSync = $value;
     }
 
     public function isSync(): bool
     {
         return $this->isSync;
+    }
+
+    public function setSystem(bool $value)
+    {
+        $this->isSystem = $value;
+    }
+
+    public function isSystem(): bool
+    {
+        return $this->isSystem;
     }
 
     public function getError()

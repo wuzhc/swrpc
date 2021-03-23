@@ -26,11 +26,9 @@ class ServerTest extends \PHPUnit\Framework\TestCase
     public function testServerRegisterToConsul()
     {
         $res = shell_exec('netstat anp | grep ' . getenv('CONSUL_PORT') . ' | wc -l');
-        $this->assertGreaterThanOrEqual(1, intval($res), 'Consul not started.');
+        $this->assertGreaterThanOrEqual(1, intval($res), 'Warning: Consul not started.');
 
-        $consul = new Consul([
-            'base_uri' => 'http://' . getenv('CONSUL_HOST') . ':' . getenv('CONSUL_PORT')
-        ]);
+        $consul = new Consul('http://' . getenv('CONSUL_HOST') . ':' . getenv('CONSUL_PORT'));
         $consul->register('test_module', '127.0.0.1', 8080);
 
         $isSuccess = false;

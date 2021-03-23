@@ -2,17 +2,18 @@
 
 namespace Swrpc\Request;
 
+
 /**
- * Class SyncRequest
+ * Class AsyncRequest
  *
  * @package Swrpc\Request
- * @author wuzhc 2021313 9:9:54
+ * @author wuzhc 2021313 9:10:2
  */
-class SyncRequest extends Request
+class SystemRequest extends Request
 {
     public function init()
     {
         $this->setSync(true);
-        $this->setSystem(false);
+        $this->setSystem(true);
     }
 }
